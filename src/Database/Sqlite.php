@@ -7,7 +7,7 @@ use PDOException;
 
 final class Sqlite
 {
-    const DB_FILE = 'database.sqlite';
+    public const DB_FILE = __DIR__  . '/../../database.sqlite';
 
     private static ?PDO $instance = null;
 
