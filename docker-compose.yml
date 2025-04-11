@@ -1,0 +1,31 @@
+services:
+  app:
+    image: php:8.4-cli
+    container_name: chat-ia
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "8181:8181"
+    working_dir: /var/www/html
+    command: php -S 0.0.0.0:8181 -t public
+    networks:
+      - app
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: chat-ia-ollama
+    ports:
+      - "11435:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+      - ./build:/build
+    entrypoint: ["build/ollama.sh"]
+    networks:
+      - app
+
+volumes:
+  ollama_data:
+
+networks:
+  app:
+    driver: bridge
